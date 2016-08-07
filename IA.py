@@ -1,4 +1,4 @@
-#TODO funcion haceLinea3
+
 from Movimiento import *
 from Posicion import *
 from Tablero import *
@@ -19,7 +19,7 @@ def sup(tablero,pos_actual, pos_objetivo):
 def comprobar(tablero,funcion_siguiente, i,pos_inicial,equipo):
     hay_linea =(tablero.casilla(funcion_siguiente(pos_inicial,i)).equipo ==
                 equipo and
-                tablero.casilla(siguiente(pos_inicial,i)).esta_ocupada())
+                tablero.casilla(funcion_siguiente(pos_inicial,i)).esta_ocupada())
     if hay_linea:
         return 1
     else:
@@ -39,13 +39,13 @@ def hay_linea_2(tablero, pos):
                         tablero.tablero[(pos.x+2)%3][pos.y].esta_ocupada() and
                         tablero.tablero[(pos.x+1)%3][pos.y].equipo ==
                         tablero.tablero[(pos.x+2)%3][pos.y].equipo)
-    if pos.esDiagonalPrincipal():
+    if pos.es_diagonal_principal():
         linea_diagonal =(
             tablero.tablero[(pos.x+1)%3][(pos.y+1)%3].esta_ocupada() and
             tablero.tablero[(pos.x+2)%3][(pos.y+2)%3].esta_ocupada() and
             tablero.tablero[(pos.x+1)%3][(pos.y+1)%3].equipo ==
             tablero.tablero[(pos.x+2)%3][(pos.y+2)%3].equipo)
-    elif pos.esDiagonalSecundaria():
+    elif pos.es_diagonal_secundaria():
         linea_diagonal = (
             tablero.tablero[(pos.x-1)%3][(pos.y+1)%3].esta_ocupada() and
             tablero.tablero[(pos.x-2)%3][(pos.y+2)%3].esta_ocupada() and
@@ -86,13 +86,13 @@ def hay_linea_3(tablero):
         for j in range(3):
             horizontal = (horizontal +
                           comprobar(tablero,
-                                    Posicion.siguienteHorizontal,
+                                    Posicion.siguiente_horizontal,
                                     j,
                                     Posicion(0,i),
                                     equipo_horizontal))
             vertical = (vertical +
             comprobar(tablero,
-                      Posicion.siguienteVertical,
+                      Posicion.siguiente_vertical,
                       j,
                       Posicion(i,0),
                       equipo_vertical))
@@ -131,12 +131,12 @@ def es_parte_de_linea(tablero, pos, equipo):
         linea_horizontal = (linea_horizontal or
                             (horizontal.esta_ocupada() and
                              horizontal.equipo == equipo))
-        if pos.esDiagonalSecundaria():
+        if pos.es_diagonal_secundaria():
             diagonal = tablero.tablero[(pos.x -i) % 3][(pos.y + i) % 3]
             linea_diagonal = (linea_diagonal or
                               (diagonal.esta_ocupada() and
                                diagonal.equipo == equipo))
-        elif pos.esDiagonalPrincipal():
+        elif pos.es_diagonal_principal():
             diagonal = tablero.tablero[(pos.x + i) % 3][(pos.y + i) % 3]
             linea_diagonal = (linea_diagonal or
                               (diagonal.esta_ocupada() and
@@ -157,10 +157,10 @@ def amenaza(tablero, pos):
             amenaza +=1
         if tablero.tablero[pos.x][(pos.y+i)%3].esta_ocupada():
             amenaza +=1
-        if (pos.esDiagonalPrincipal() and
+        if (pos.es_diagonal_principal() and
             tablero.tablero[(pos.x+i)%3][(pos.y+i)%3].esta_ocupada()):
             amenaza +=1
-        elif( pos.esDiagonalSecundaria() and
+        elif( pos.es_diagonal_secundaria() and
               tablero.tablero[(pos.x-i)%3][(pos.y+i)%3].esta_ocupada()):
             amenaza +=1
         i +=1
