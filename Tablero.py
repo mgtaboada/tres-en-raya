@@ -12,13 +12,13 @@ class Tablero:
         for i in range(3):
             for j in range(3):
                 aux.tablero[i][j] = (Casilla(self.tablero[i][j].esta_ocupada(),
-                                             self.tablero[i][j].equipo()))
+                                             self.tablero[i][j].equipo))
         return aux
     # mueve lo que haya en la posicion "actual" a la posicion "objetivo"
     def mover(self, actual, objetivo):
         c_actual = self.tablero[actual.x][actual.y]
         c_objetivo = self.tablero[objetivo.x][objetivo.y]
-        c_objetivo.ocupar(c_actual.equipo())
+        c_objetivo.ocupar(c_actual.equipo)
         c_actual.desocupar()
     # mueve lo que diga el objeto movimento 
     def mover_m(self, movimiento):
@@ -31,7 +31,7 @@ class Tablero:
         for i in range(3):
             for j in range(3):
                 if self.tablero[i][j].esta_ocupada():
-                    matriz[i][j] = self.tablero[i][j].equipo()
+                    matriz[i][j] = self.tablero[i][j].equipo
                 else:
                     matriz[i][j]=0
         return matriz
@@ -41,9 +41,9 @@ class Tablero:
     # Muestra la matriz dada por pantalla
     def imprimir_tablero(self,m):
         print (40*"\n")
-        print("""   0 | 1 | 2
+        print("""         0 | 1 | 2
         ------------
-        0 %s |%s | %s
+        0 %s | %s | %s
         ------------
         1 %s | %s | %s
         ------------
@@ -77,7 +77,7 @@ class Tablero:
         for i in range(3):
             for j in range(3):
                 if(self.tablero[i][j].esta_ocupada()):
-                    matriz[i][j] = a_letra(self.tablero[i][j].equipo())
+                    matriz[i][j] = a_letra(self.tablero[i][j].equipo)
                 else:
                     matriz[i][j] = " "
         return matriz
